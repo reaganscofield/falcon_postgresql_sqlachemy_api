@@ -29,6 +29,7 @@ class BaseModel(object):
 
         return None
 
+
     @classmethod
     def find_one(cls, session, id):
         return session.query(cls).filter(cls.get_id() == id).one()
@@ -38,7 +39,6 @@ class BaseModel(object):
     def find_by_id(cls, sessio, id):
         return sessio.query(cls).filter(cls.db_id == id).one()
     
-
     @classmethod
     def find_update(cls, session, id, args):
         return (
@@ -47,7 +47,6 @@ class BaseModel(object):
             .update(args, synchronize_session=False)
         )
 
-
     @classmethod
     def find_delete(cls, session, id):
         return (
@@ -55,6 +54,18 @@ class BaseModel(object):
             .filter(cls.get_id() == id)
             .delete(synchronize_session=False)
         )
+
+
+    @classmethod
+    def filters(cls, session, args):
+        
+        if args['name'] is not None:
+            # session = session.query(cls).filter(cls.name == args['name'])
+            pass
+        if args['email'] is not None:
+            session = session.query(cls).filter(cls.email == args['email'])
+
+        return session
 
     @classmethod
     def get_id(cls):

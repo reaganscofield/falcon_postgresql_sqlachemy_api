@@ -96,3 +96,22 @@ class CompanyDelete(BaseResource):
             self.on_success(res, {"sucess deleted": f"{id}"})
         else:
             raise AppError()
+
+
+class CompanyFilter(BaseResource):
+
+    def on_get(self, req, res):
+        session = req.context["session"]
+        data = req.context["data"]
+        args = {
+            "contact_number": data["contact_number"],
+            "email": data["email"],
+            "vat_no": data["vat_no"],
+            "name": data["name"],
+        }
+        companies = Company.filters(session, args)
+        if companies:
+            obj = [company.to_dict() for company in companies]
+            self.on_success(res, obj)
+        else:
+            raise AppError()

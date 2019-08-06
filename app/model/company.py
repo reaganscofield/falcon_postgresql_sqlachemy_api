@@ -29,6 +29,7 @@ class Company(Base):
     def get_id(cls):
         return cls.db_id
 
+
     FIELDS = {
         "contact_number": str, 
         "name": str, 

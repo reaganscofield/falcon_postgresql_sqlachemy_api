@@ -29,6 +29,7 @@ class App(falcon.API):
         self.add_route("/api/company/{id}", company.CompanyCollect())
         self.add_route("/api/company_update/{id}", company.CompanyUpdate())
         self.add_route("/api/company_destroy/{id}", company.CompanyDelete())
+        self.add_route("/api/companies_search", company.CompanyFilter())
 
         self.add_error_handler(AppError, AppError.handle)
 
